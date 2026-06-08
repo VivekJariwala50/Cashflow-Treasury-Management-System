@@ -1,0 +1,8 @@
+{
+  "name": "cashflow_treasury",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
