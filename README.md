@@ -1,115 +1,152 @@
-# Apex Treasury Management System
+<div align="center">
+  <h1>Cashflow Treasury Management System</h1>
+  <p><b>Secure Enterprise Liquidity and Automated Multi Bank Orchestration Platform</b></p>
+</div>
 
-Enterprise Grade Liquidity Orchestration and Bank Integration Portal
+***
 
 *IMPORTANT NOTICE: This repository contains the system architecture, documentation, and interface screenshots for a proprietary treasury management application built for a private financial firm. The core source code is protected by corporate nondisclosure agreements, and the production site operates exclusively on a private network. Consequently, production links and implementation code are restricted.*
 
-Apex Treasury is a high performance bank integration and corporate cash management system. It was custom built for an institutional finance firm to manage multi LLC corporate portfolios. The platform coordinates more than 250 corporate bank accounts across 250 distinct LLCs. It directly integrates with PNC Developer and Bank of America CashPro APIs for real time balance retrieval and transaction queries. Built using a React JS, TypeScript, Node JS, Express JS, and MongoDB stack, the system achieves maximum security via Duo Mobile MFA and features an automated cash reconciliation engine.
+***
 
-*=============================================================*
-|                     React JS Client                         |
-|     (Zustand State Store, Vanilla CSS Premium Design)       |
-*=============================================================*
-                               |
-                               | (Secure HTTPS Transport)
-                               v
-*=============================================================*
-|                     Express JS Server                       |
-|          (Node JS Backend, Auth Gatekeeper)                 |
-*=============================================================*
-         |                     |                       |
-         | (Regex Parser)      | (Worker Batch Pool)   | (MFA Auth)
-         v                     v                       v
-*================*   *===================*   *================*
-| MongoDB Atlas  |   | PNC and BofA APIs |   |   Duo Mobile   |
-| (LLC Accounts) |   | (Direct Banking)  |   |  Security API  |
-*================*   *===================*   *================*
+This cashflow treasury management system is a high performance bank integration and corporate cash management system. It was custom built for an institutional finance firm to manage multi LLC corporate portfolios. The platform coordinates more than 250 corporate bank accounts across 250 distinct LLCs. It directly integrates with PNC Developer and Bank of America CashPro APIs for real time balance retrieval and transaction queries. Built using a React JS, TypeScript, Node JS, Express JS, and MongoDB stack, the system achieves maximum security via Duo Mobile MFA and features an automated cash reconciliation engine.
 
-## Performance Engineering and Architectural Focus
+***
+
+## 🌟 Key Capabilities
+
+* **Daily Money Movement & Liquidity Sweeps:** CFO level dashboard displaying deficit accounts in real time. With a single click, the system identifies appropriate funding accounts using corporate rules and executes immediate cash transfers to make all negative balances positive.
+* **AI Reconciliation & Counterparty Matching:** Parsed bank transaction strings containing wire logs are processed to extract target bank accounts. The system queries the LLC registry database to resolve and link matching counterparties automatically.
+* **Corporate Security Protocols:** Critical operations require multi factor authorization before execution. Incorporates Duo Mobile integration for push notification logins and strict role based access control.
+* **Excel to QBO Web Converter:** Accounts team can upload standard CSV or Excel bank ledger sheets. The converter transforms the records into QuickBooks Online Web Connect format for seamless synchronization.
+* **Check Services & Auditing:** Complete check image retrieval options and payment tracking sheets.
+
+***
+
+## 🚀 Technology Stack
+
+* **Frontend Framework:** React JS with TypeScript
+* **State Management:** Zustand (for Auth, Account Balances, and Transaction Sheets)
+* **Styling:** Custom CSS (Dynamic and light/dark theme variables)
+* **Backend:** Node JS with Express JS
+* **Database:** MongoDB Atlas (for LLC structures and account mapping)
+* **Integrations:** PNC Bank Developer API, Bank of America CashPro API, Duo Mobile Security API
+
+***
+
+## 💻 System Context & Architecture
+
+```mermaid
+flowchart TD
+    Client[React JS Client] ==>|Secure API Call| Server[Express JS Server]
+    Server ==>|Fetch Balances| PNC[PNC Bank API]
+    Server ==>|Fetch Balances| BofA[Bank of America API]
+    Server ==>|Verify Identity| Duo[Duo Mobile MFA]
+    Server ==>|Query Records| DB[(MongoDB database)]
+```
+
+### Performance Engineering & FAANG Level Optimizations
 
 To prevent page hang issues when managing balance inquiries and transaction lists for 250 plus bank accounts, the architecture employs advanced scheduling and performance strategies:
 
-* Concurrency Worker Pools: Requests are split into parallel execution batches of 15 concurrent workers. This approach prevents server connection pooling limits from blocking the event loop.
-* Memory Caching: Balance inquiries use a server side caching layer with a 5 minute time to live, reducing redundant bank network requests by 78 percent.
-* Optimistic UI Updates: Client state transitions use Zustand slices to immediately reflect transactions locally while syncing asynchronously in the background.
+* **Concurrency Worker Pools:** Requests are split into parallel execution batches of 15 concurrent workers. This approach prevents server connection pooling limits from blocking the event loop.
+* **Memory Caching:** Balance inquiries use a server side caching layer with a 5 minute time to live, reducing redundant bank network requests by 78 percent.
+* **Optimistic UI Updates:** Client state transitions use Zustand slices to immediately reflect transactions locally while syncing asynchronously in the background.
 
-## Core Capabilities
+***
 
-### 1. Daily Money Movement and Liquidity Sweeps
-CFO level dashboard displaying deficit accounts in real time. With a single click, the system identifies appropriate funding accounts using corporate rules and executes immediate cash transfers to make all negative balances positive.
-* Automated deficit scanning across all portfolios
-* Intraday liquidity routing rules
-* Single click wire staging and validation
+## 🧪 Testing Strategy
 
-### 2. AI Reconciliation and Counterparty Matching
-Parsed bank transaction strings containing wire logs are processed to extract target bank accounts. The system queries the LLC registry database to resolve and link matching counterparties automatically.
-* Text extraction using optimized regex patterns
-* Database record matching with 99 percent accuracy
-* Automated ledger tagging
+* **Unit Testing:** Validates Zustand store transitions, reconciliation regex parsers, and sweep calculation logic.
+* **Integration Testing:** Tests Express controller routes and mocks bank API communication.
+* **Security Testing:** Validates role access privileges and simulates Duo authentication states.
 
-### 3. Corporate Security Protocols
-Critical operations require multi factor authorization before execution.
-* Duo Mobile integration for push notification logins
-* Role based access control restricting administration, payment execution, and auditing
-* Encrypted session logs for audit compliance
+***
 
-### 4. Excel to QBO Web Converter
-Accounts team can upload standard CSV or Excel bank ledger sheets. The converter transforms the records into QuickBooks Online Web Connect format for seamless synchronization.
-* Parser for multiple column layouts
-* Auto conversion to QBO schema
-* Safe file compilation in browser memory
+## 📸 Interface Gallery & Collages
 
-## Key Performance and Impact Metrics
+To provide a comprehensive overview of the product without disclosing private code, the complete interface design is documented below in a compact layout.
 
-* Zero UI hangs observed during simultaneous 250 plus account inquiries
-* Bank connection resolution time under 2 seconds via worker parallelization
-* Deficit sweeps executed and cleared in under 450 milliseconds
-* 100 percent real time visibility for CFO and executive officers
+### Authentication & Core Navigation
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/login.png" alt="Login Portal" width="100%"><br>
+      <b>Login Portal</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/loginDUOAuth.png" alt="Duo MFA Check" width="100%"><br>
+      <b>Duo MFA Check</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/homepage.png" alt="Portfolio Homepage" width="100%"><br>
+      <b>Portfolio Homepage</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/adminDashboard.png" alt="Admin Settings" width="100%"><br>
+      <b>Admin Settings</b>
+    </td>
+  </tr>
+</table>
 
-## Testing Strategy
+### Balances & Transactions Retrieval
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/balanceInquiry_1.png" alt="Balances Grid 1" width="100%"><br>
+      <b>Balances Grid 1</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/balanceInquiry_2.png" alt="Balances Grid 2" width="100%"><br>
+      <b>Balances Grid 2</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/transactions_1.png" alt="Transactions Grid 1" width="100%"><br>
+      <b>Transactions Grid 1</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/transactions_2.png" alt="Transactions Grid 2" width="100%"><br>
+      <b>Transactions Grid 2</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/transactions_3.png" alt="Transactions Grid 3" width="100%"><br>
+      <b>Transactions Grid 3</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/transactions_4.png" alt="Transactions Grid 4" width="100%"><br>
+      <b>Transactions Grid 4</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/dailyMoneyMovement.png" alt="Daily Sweeps Control" width="100%"><br>
+      <b>Daily Sweeps Control</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/accountTransferPNC.png" alt="PNC Transfer Panel" width="100%"><br>
+      <b>PNC Transfer Panel</b>
+    </td>
+  </tr>
+</table>
 
-* Unit Testing: Validates Zustand store transitions, reconciliation regex parsers, and sweep calculation logic.
-* Integration Testing: Tests Express controller routes and mocks bank API communication.
-* Security Testing: Validates role access privileges and simulates Duo authentication states.
-
-## User Interface and Feature Documentation
-
-### Core Authentication Portal
-Secure entrance interface featuring Duo MFA authorization before dashboard access.
-![Login Screen](docs/screenshots/login.png)
-![Duo Mobile Security Check](docs/screenshots/loginDUOAuth.png)
-
-### Administrator Portal
-Administration dashboard to configure LLC corporate entities and set permissions.
-![Admin Dashboard](docs/screenshots/adminDashboard.png)
-
-### Treasury Homepage and Portfolio Hub
-Overview of global treasury accounts, liquidity metrics, and portfolio status.
-![Homepage UI](docs/screenshots/homepage.png)
-
-### Balance Inquiries and Transaction Logs
-Highly responsive transaction grids loading 250 plus accounts instantly.
-![Account Balance Grid 1](docs/screenshots/balanceInquiry_1.png)
-![Account Balance Grid 2](docs/screenshots/balanceInquiry_2.png)
-![Transaction Log Grid 1](docs/screenshots/transactions_1.png)
-![Transaction Log Grid 2](docs/screenshots/transactions_2.png)
-![Transaction Log Grid 3](docs/screenshots/transactions_3.png)
-![Transaction Log Grid 4](docs/screenshots/transactions_4.png)
-
-### Daily Money Movement Sweeps
-Interface for CFO users to execute single click liquidity balances correction.
-![Daily Cash Sweeping](docs/screenshots/dailyMoneyMovement.png)
-![Account Transfer Execution](docs/screenshots/accountTransferPNC.png)
-
-### Wires and Domestic Transfer
-Payment execution page to configure and authorize domestic wire transactions.
-![Wire Setup Page](docs/screenshots/usDomesticWire.png)
-
-### Document Converter and Bookkeeping Tools
-Excel transaction upload converting data directly to QBO files.
-![QBO Conversion Tool](docs/screenshots/excelToQBO.png)
-
-### Check Image and Payment Auditing
-Payment tracking sheets and check image retrieval options.
-![Check Services Screen](docs/screenshots/checkServices.png)
-![Payment Tracking Grid](docs/screenshots/paymentTrackingSheet.png)
+### Transfer Execution & Document Parsing
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/usDomesticWire.png" alt="Domestic Wire" width="100%"><br>
+      <b>Domestic Wire</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/excelToQBO.png" alt="Excel to QBO Tool" width="100%"><br>
+      <b>Excel to QBO Tool</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/checkServices.png" alt="Check Services" width="100%"><br>
+      <b>Check Services</b>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/screenshots/paymentTrackingSheet.png" alt="Payment Tracking" width="100%"><br>
+      <b>Payment Tracking</b>
+    </td>
+  </tr>
+</table>
