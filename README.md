@@ -45,7 +45,7 @@ flowchart TD
     Server ==>|Query Records| DB[(MongoDB database)]
 ```
 
-### Performance Engineering & FAANG Level Optimizations
+### Performance Engineering & Optimizations
 
 To prevent page hang issues when managing balance inquiries and transaction lists for 250 plus bank accounts, the architecture employs advanced scheduling and performance strategies:
 
